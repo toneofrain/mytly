@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    default: dev
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.hibernate:
+      type.descriptor.sql: trace
+      org.hibernate.SQLQuery: debug
