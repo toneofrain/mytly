@@ -1,15 +1,19 @@
 package dev.saintho.mytly.service;
 
 
+import static dev.saintho.mytly.exception.ExceptionType.*;
+
 import java.util.Optional;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import dev.saintho.mytly.dto.command.UrlDeleteCommand;
 import dev.saintho.mytly.dto.command.UrlShortCommand;
 import dev.saintho.mytly.entity.Url;
 import dev.saintho.mytly.event.dto.UrlCreateEvent;
+import dev.saintho.mytly.exception.MytlyException;
 import dev.saintho.mytly.generator.url.UrlGenerator;
 import dev.saintho.mytly.repository.UrlRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +33,19 @@ public class UrlService {
 			.map(url -> reRequestUrl(url, command))
 			.orElseGet(() -> createUrl(command));
 
+	}
+
+	public void deleteUrl(UrlDeleteCommand command) {
+		Url url = findVerifiedOneByShortened(command.getShortened());
+		urlRepository.delete(url);
+	}
+
+	public Url findVerifiedOneByShortened(String shortenend) {
+		Optional<Url> urlOptional = urlRepository.findByShortened(shortenend);
+
+		return urlOptional
+			.orElseThrow(
+				() -> new MytlyException(URL_NOT_FOUND, "URL_ENTITY_CORRESPONDING_SUCH_SHORTENED_URL_NOT_FOUND"));
 	}
 
 	private Url reRequestUrl(Url url, UrlShortCommand command) {
