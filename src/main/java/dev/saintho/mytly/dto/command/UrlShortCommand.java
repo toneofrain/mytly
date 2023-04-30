@@ -5,13 +5,13 @@ import dev.saintho.mytly.dto.request.UrlPostRequest;
 import lombok.Getter;
 
 @Getter
-public class UrlCreateCommand {
+public class UrlShortCommand {
 	private String original;
 	private Boolean isExpirable;
 	private ExpirationPeriod expirationPeriod;
 
-	public static UrlCreateCommand from(UrlPostRequest request) {
-		UrlCreateCommand command = new UrlCreateCommand();
+	public static UrlShortCommand from(UrlPostRequest request) {
+		UrlShortCommand command = new UrlShortCommand();
 
 		command.original = request.getOriginal();
 		command.isExpirable = request.getIsExpirable();

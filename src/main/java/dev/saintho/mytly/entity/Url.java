@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import dev.saintho.mytly.dto.request.ExpirationPeriod;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,5 +44,14 @@ public class Url {
 		this.original = original;
 		this.isExpirable = isExpirable;
 		this.expireAt = expireAt;
+	}
+	public void updateExpirationOption(Boolean isExpirable, ExpirationPeriod expirationPeriod) {
+		this.isExpirable = isExpirable;
+		this.expireAt = expirationPeriod.getExpireAt();
+	}
+
+	public void setIsNotExpirable() {
+		this.isExpirable = false;
+		this.expireAt = null;
 	}
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.saintho.mytly.dto.command.UrlCreateCommand;
+import dev.saintho.mytly.dto.command.UrlShortCommand;
 import dev.saintho.mytly.dto.request.UrlPostRequest;
 import dev.saintho.mytly.dto.response.UrlPostResponse;
 import dev.saintho.mytly.entity.Url;
@@ -22,8 +22,7 @@ public class UrlController {
 
 	@PostMapping
 	public ResponseEntity<UrlPostResponse> shortUrl(@RequestBody UrlPostRequest request) {
-		Url url = urlService.createUrl(
-			UrlCreateCommand.from(request));
+		Url url = urlService.shortUrl(UrlShortCommand.from(request));
 
 		UrlPostResponse response = UrlPostResponse.from(url);
 
