@@ -21,11 +21,11 @@ CREATE TABLE url (
 );
 
 CREATE TABLE referer_engagement (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    url_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     direct MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
     other MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
     google MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
-    PRIMARY KEY (id)
+    PRIMARY KEY (url_id)
 );
 
 CREATE TABLE daily_engagement (
@@ -38,7 +38,7 @@ CREATE TABLE daily_engagement (
 
 ALTER TABLE referer_engagement
 ADD CONSTRAINT fk_url_referer_engagement
-FOREIGN KEY (id)
+FOREIGN KEY (url_id)
 REFERENCES url (id)
 ON DELETE CASCADE;
 
