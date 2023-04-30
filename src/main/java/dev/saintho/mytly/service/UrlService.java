@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dev.saintho.mytly.dto.command.UrlDeleteCommand;
 import dev.saintho.mytly.dto.command.UrlShortCommand;
-import dev.saintho.mytly.dto.query.UrlGetQuery;
 import dev.saintho.mytly.entity.Url;
 import dev.saintho.mytly.event.dto.UrlCreateEvent;
 import dev.saintho.mytly.exception.MytlyException;
@@ -35,14 +34,6 @@ public class UrlService {
 			.orElseGet(() -> createUrl(command));
 
 	}
-
-	@Transactional(readOnly = true)
-	public String getOriginalUrl(UrlGetQuery query) {
-		Url url = findVerifiedOneByShortened(query.getShortened());
-
-		return url.getOriginal();
-	}
-
 	public void deleteUrl(UrlDeleteCommand command) {
 		Url url = findVerifiedOneByShortened(command.getShortened());
 		urlRepository.delete(url);
