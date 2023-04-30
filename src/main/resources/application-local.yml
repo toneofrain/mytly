@@ -10,5 +10,5 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${LOCAL_DB_URL}
-    username: mystagram
+    username: mystly
     password: ${LOCAL_DB_PW}
