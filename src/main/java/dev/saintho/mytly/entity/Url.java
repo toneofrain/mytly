@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import dev.saintho.mytly.event.listener.UrlEntityListener;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +19,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@EntityListeners({AuditingEntityListener.class, UrlEntityListener.class})
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Url {
 	@Id

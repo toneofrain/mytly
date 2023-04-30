@@ -14,6 +14,6 @@ public class UrlPostResponse {
 		response.original = url.getOriginal();
 		response.shortened = url.getShortened();
 
-		return  response;
+		return response;
 	}
 }

@@ -23,8 +23,8 @@ public class Base62UrlGenerator implements UrlGenerator {
 		StringBuffer sb = new StringBuffer();
 
 		do {
-			int digit = (int) source % base;
-			sb.append(chars[digit]);
+			long digit = source % base;
+			sb.append(chars[(int) digit]);
 			source /= base;
 		} while (source > 0);
 

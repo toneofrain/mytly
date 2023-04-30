@@ -1,12 +1,13 @@
 package dev.saintho.mytly.service;
 
-import java.util.Optional;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import dev.saintho.mytly.dto.command.UrlCreateCommand;
 import dev.saintho.mytly.entity.Url;
+import dev.saintho.mytly.event.dto.UrlCreateEvent;
 import dev.saintho.mytly.generator.url.UrlGenerator;
 import dev.saintho.mytly.repository.UrlRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,20 +18,13 @@ import lombok.RequiredArgsConstructor;
 public class UrlService {
 	private final UrlRepository urlRepository;
 	private final UrlGenerator urlGenerator;
+	private final ApplicationEventPublisher eventPublisher;
 
 	public Url createUrl(UrlCreateCommand command) {
 		String shortened = generateUniqueUrl(command.getOriginal());
 
-		Url.UrlBuilder builder = Url.builder()
-			.shortened(shortened)
-			.original(command.getOriginal())
-			.isExpirable(command.getIsExpirable());
-
-		Optional.ofNullable(command.getExpirationPeriod())
-			.ifPresent(expirationPeriod ->
-				builder.expireAt(expirationPeriod.getExpireAt()));
-
-		Url url = builder.build();
+		Url url = getUrlOf(shortened, command);
+		eventPublisher.publishEvent(new UrlCreateEvent(url));
 
 		return urlRepository.save(url);
 	}
@@ -43,5 +37,22 @@ public class UrlService {
 		}
 
 		return generated;
+	}
+
+	private Url getUrlOf(String shortened, UrlCreateCommand command) {
+		if (!command.getIsExpirable()) {
+			return Url.builder()
+				.shortened(shortened)
+				.original(command.getOriginal())
+				.isExpirable(command.getIsExpirable())
+				.build();
+		}
+
+		return Url.builder()
+			.shortened(shortened)
+			.original(command.getOriginal())
+			.isExpirable(command.getIsExpirable())
+			.expireAt(command.getExpirationPeriod().getExpireAt())
+			.build();
 	}
 }
