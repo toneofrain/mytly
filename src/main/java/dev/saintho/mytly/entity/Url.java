@@ -13,6 +13,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -35,4 +36,12 @@ public class Url {
 	private boolean isExpirable = false;
 	@Column
 	private LocalDateTime expireAt;
+
+	@Builder
+	public Url(String shortened, String original, boolean isExpirable, LocalDateTime expireAt) {
+		this.shortened = shortened;
+		this.original = original;
+		this.isExpirable = isExpirable;
+		this.expireAt = expireAt;
+	}
 }
