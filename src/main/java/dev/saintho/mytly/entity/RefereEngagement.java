@@ -29,4 +29,12 @@ public class RefereEngagement {
 	@OneToOne
 	@JoinColumn(name = "url_id")
 	private Url url;
+
+	public static RefereEngagement from(Url url) {
+		RefereEngagement refereEngagement = new RefereEngagement();
+
+		refereEngagement.url = url;
+
+		return refereEngagement;
+	}
 }
