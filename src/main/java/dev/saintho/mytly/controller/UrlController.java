@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.saintho.mytly.dto.command.UrlDeleteCommand;
 import dev.saintho.mytly.dto.command.UrlShortCommand;
 import dev.saintho.mytly.dto.request.UrlPostRequest;
 import dev.saintho.mytly.dto.response.UrlPostResponse;
@@ -35,6 +36,11 @@ public class UrlController {
 
 	@DeleteMapping("/{shortened}")
 	public ResponseEntity<Void> deleteUrl(@PathVariable String shortened) {
-		return null;
+		urlService.deleteUrl(
+			UrlDeleteCommand.from(shortened));
+
+		return ResponseEntity
+			.noContent()
+			.build();
 	}
 }
