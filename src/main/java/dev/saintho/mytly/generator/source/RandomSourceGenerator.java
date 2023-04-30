@@ -1,6 +1,5 @@
 package dev.saintho.mytly.generator.source;
 
-import java.math.BigInteger;
 import java.util.Random;
 
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,7 @@ public class RandomSourceGenerator implements SourceGenerator {
 	private final int lowerLength;
 	private final int upperLength;
 	@Override
-	public long generate(final int base) {
+	public long generate(int base, String original) {
 		long min = (long) Math.pow(base, lowerLength);
 		long max = (long) Math.pow(base, upperLength + 1) - 1;
 

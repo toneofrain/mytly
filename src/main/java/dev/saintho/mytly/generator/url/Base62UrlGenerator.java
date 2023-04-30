@@ -2,8 +2,6 @@ package dev.saintho.mytly.generator.url;
 
 import static dev.saintho.mytly.generator.url.EncodingScheme.*;
 
-import java.math.BigInteger;
-
 import dev.saintho.mytly.generator.source.SourceGenerator;
 import lombok.RequiredArgsConstructor;
 
@@ -12,8 +10,8 @@ public class Base62UrlGenerator implements UrlGenerator {
 	private final SourceGenerator sourceGenerator;
 	private final EncodingScheme scheme = BASE62;
 	@Override
-	public String generate() {
-		long source = sourceGenerator.generate(scheme.getBase());
+	public String generate(String original) {
+		long source = sourceGenerator.generate(scheme.getBase(), original);
 
 		return encodeToBase62(source);
 	}
@@ -25,8 +23,8 @@ public class Base62UrlGenerator implements UrlGenerator {
 		StringBuffer sb = new StringBuffer();
 
 		do {
-			int digit = (int) source % base;
-			sb.append(chars[digit]);
+			long digit = source % base;
+			sb.append(chars[(int) digit]);
 			source /= base;
 		} while (source > 0);
 
