@@ -2,7 +2,7 @@ package dev.saintho.mytly.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import dev.saintho.mytly.entity.RefereEngagement;
+import dev.saintho.mytly.entity.RefererEngagement;
 
-public interface RefererEngagementRepository extends JpaRepository<RefereEngagement, Long> {
+public interface RefererEngagementRepository extends JpaRepository<RefererEngagement, Long> {
 }

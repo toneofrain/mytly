@@ -4,10 +4,29 @@ import java.net.URI;
 
 import com.google.common.net.InternetDomainName;
 
+import dev.saintho.mytly.entity.RefererEngagement;
+
 public enum Referer {
-	DIRECT,
-	OTHER,
-	GOOGLE;
+	DIRECT{
+		@Override
+		public void engage(RefererEngagement refererEngagement) {
+			refererEngagement.engageByDirect();
+		}
+	},
+	GOOGLE{
+		@Override
+		public void engage(RefererEngagement refererEngagement) {
+			refererEngagement.engageFromGoogle();
+		}
+	},
+	OTHER{
+		@Override
+		public void engage(RefererEngagement refererEngagement) {
+			refererEngagement.engageFromOthers();
+		}
+	};
+
+	public abstract void engage(RefererEngagement refererEngagement);
 
 	public static Referer fromRefererHeader(String refererHeader) {
 		if (refererHeader == null) {
