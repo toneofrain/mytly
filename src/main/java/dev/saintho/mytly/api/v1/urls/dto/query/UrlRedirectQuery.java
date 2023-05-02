@@ -1,4 +1,4 @@
-package dev.saintho.mytly.web.v1.dto.query;
+package dev.saintho.mytly.api.v1.urls.dto.query;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,7 +1,7 @@
-package dev.saintho.mytly.web.v1.dto.command;
+package dev.saintho.mytly.api.v1.urls.dto.command;
 
-import dev.saintho.mytly.web.v1.dto.request.ExpirationPeriod;
-import dev.saintho.mytly.web.v1.dto.request.UrlPostRequest;
+import dev.saintho.mytly.api.v1.urls.dto.request.ExpirationPeriod;
+import dev.saintho.mytly.api.v1.urls.dto.request.UrlPostRequest;
 import lombok.Getter;
 
 @Getter

@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import dev.saintho.mytly.web.v1.dto.request.ExpirationPeriod;
+import dev.saintho.mytly.api.v1.urls.dto.request.ExpirationPeriod;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

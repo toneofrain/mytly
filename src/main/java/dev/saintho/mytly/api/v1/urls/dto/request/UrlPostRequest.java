@@ -1,4 +1,4 @@
-package dev.saintho.mytly.web.v1.dto.request;
+package dev.saintho.mytly.api.v1.urls.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
