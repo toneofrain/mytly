@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,13 +21,13 @@ import lombok.NoArgsConstructor;
 public class DailyEngagement {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long id;
+	private Long id;
 	@Column(name = "engage_date", nullable = false)
-	public LocalDate date;
+	private LocalDate date;
 	@Column(name = "engage_count", nullable = false)
-	public int count;
+	private int count;
 
 	@ManyToOne
 	@JoinColumn(name = "url_id")
-	public Url url;
+	private Url url;
 }

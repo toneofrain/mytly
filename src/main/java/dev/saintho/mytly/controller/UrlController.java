@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.saintho.mytly.dto.command.UrlDeleteCommand;
 import dev.saintho.mytly.dto.command.UrlShortCommand;
+import dev.saintho.mytly.dto.query.Referer;
 import dev.saintho.mytly.dto.request.UrlPostRequest;
 import dev.saintho.mytly.dto.response.UrlPostResponse;
 import dev.saintho.mytly.entity.Url;
@@ -38,14 +39,22 @@ public class UrlController {
 			.body(response);
 	}
 
-	@GetMapping("/{shortened}")
+	@GetMapping("/{shortened:[A-Za-z0-9]+}")
 	public ResponseEntity<String> getOriginalUrl
-		(@PathVariable String shortened, @RequestHeader("Referer") String referer) {
+		(@PathVariable String shortened, @RequestHeader(value = "Referer", required = false) String refererHeader) {
 		Url url = urlService.findVerifiedOneByShortened(shortened);
+		Referer referer = Referer.fromRefererHeader(refererHeader);
 
 		return ResponseEntity
 			.status(MOVED_PERMANENTLY)
 			.body(url.getOriginal());
+	}
+
+	@GetMapping("/{shortenedFollowedByPlusSign:[A-Za-z0-9]+[+]$}")
+	public ResponseEntity<String> getUrlStats
+		(@PathVariable String shortenedFollowedByPlusSign) {
+		return ResponseEntity
+			.ok("good");
 	}
 
 	@DeleteMapping("/{shortened}")

@@ -1,6 +1,5 @@
 package dev.saintho.mytly.service;
 
-
 import static dev.saintho.mytly.exception.ExceptionType.*;
 
 import java.util.Optional;

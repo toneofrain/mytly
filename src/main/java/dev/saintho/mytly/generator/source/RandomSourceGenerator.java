@@ -14,6 +14,11 @@ public class RandomSourceGenerator implements SourceGenerator {
 		long min = (long) Math.pow(base, lowerLength);
 		long max = (long) Math.pow(base, upperLength + 1) - 1;
 
-		return min + random.longs(min, max + 1).limit(1).findFirst().getAsLong();
+		return min +
+			random
+			.longs(min, max + 1)
+			.limit(1)
+			.findFirst()
+			.getAsLong();
 	}
 }
