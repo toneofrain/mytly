@@ -7,7 +7,6 @@ import dev.saintho.mytly.event.dto.UrlCreateEvent;
 import dev.saintho.mytly.service.RefererEngagementService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Component
 @RequiredArgsConstructor

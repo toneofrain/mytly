@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dev.saintho.mytly.domain.entity.RefererEngagement;
 import dev.saintho.mytly.domain.entity.Url;
-import dev.saintho.mytly.repository.RefererEngagementRepository;
+import dev.saintho.mytly.repository.jpa.RefererEngagementRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service

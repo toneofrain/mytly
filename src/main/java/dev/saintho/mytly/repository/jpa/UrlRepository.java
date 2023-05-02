@@ -1,4 +1,4 @@
-package dev.saintho.mytly.repository;
+package dev.saintho.mytly.repository.jpa;
 
 import java.util.Optional;
 

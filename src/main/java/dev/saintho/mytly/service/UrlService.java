@@ -16,7 +16,7 @@ import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.event.dto.UrlCreateEvent;
 import dev.saintho.mytly.exception.MytlyException;
 import dev.saintho.mytly.generator.url.UrlGenerator;
-import dev.saintho.mytly.repository.UrlRepository;
+import dev.saintho.mytly.repository.jpa.UrlRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
