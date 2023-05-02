@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.saintho.mytly.dto.command.UrlDeleteCommand;
+import dev.saintho.mytly.dto.command.UrlDeleteByShortenedCommand;
 import dev.saintho.mytly.dto.command.UrlShortCommand;
 import dev.saintho.mytly.dto.query.Referer;
 import dev.saintho.mytly.dto.query.UrlRedirectQuery;
@@ -67,8 +67,8 @@ public class UrlController {
 
 	@DeleteMapping("/{shortened}")
 	public ResponseEntity<Void> deleteUrl(@PathVariable String shortened) {
-		urlService.deleteUrl(
-			UrlDeleteCommand.from(shortened));
+		urlService.deleteUrlByShortened(
+			UrlDeleteByShortenedCommand.from(shortened));
 
 		return ResponseEntity
 			.noContent()

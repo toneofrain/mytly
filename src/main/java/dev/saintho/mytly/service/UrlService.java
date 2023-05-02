@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import dev.saintho.mytly.dto.command.UrlDeleteCommand;
+import dev.saintho.mytly.dto.command.UrlDeleteByShortenedCommand;
 import dev.saintho.mytly.dto.command.UrlShortCommand;
 import dev.saintho.mytly.dto.query.UrlRedirectQuery;
 import dev.saintho.mytly.entity.Url;
@@ -41,7 +41,7 @@ public class UrlService {
 			.orElseGet(() -> createUrl(command));
 
 	}
-	public void deleteUrl(UrlDeleteCommand command) {
+	public void deleteUrlByShortened(UrlDeleteByShortenedCommand command) {
 		Url url = findVerifiedOneByShortened(command.getShortened());
 		urlRepository.delete(url);
 	}
