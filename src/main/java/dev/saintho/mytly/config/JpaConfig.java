@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
-@EnableJpaRepositories(basePackages = {"dev.saintho.mytly"})
+@EnableJpaRepositories(basePackages = {"dev.saintho.mytly.repository"})
 @EnableJpaAuditing
 @Configuration
 public class JpaConfig {
