@@ -2,6 +2,8 @@ package dev.saintho.mytly.controller;
 
 import static org.springframework.http.HttpStatus.*;
 
+import java.net.URI;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.saintho.mytly.dto.command.UrlDeleteCommand;
 import dev.saintho.mytly.dto.command.UrlShortCommand;
 import dev.saintho.mytly.dto.query.Referer;
+import dev.saintho.mytly.dto.query.UrlRedirectQuery;
 import dev.saintho.mytly.dto.request.UrlPostRequest;
 import dev.saintho.mytly.dto.response.UrlPostResponse;
+import dev.saintho.mytly.dto.response.UrlRedirectResponse;
 import dev.saintho.mytly.entity.Url;
 import dev.saintho.mytly.service.UrlService;
 import lombok.RequiredArgsConstructor;
@@ -40,14 +44,18 @@ public class UrlController {
 	}
 
 	@GetMapping("/{shortened:[A-Za-z0-9]+}")
-	public ResponseEntity<String> getOriginalUrl
+	public ResponseEntity<UrlRedirectResponse> getRedirectUrl
 		(@PathVariable String shortened, @RequestHeader(value = "Referer", required = false) String refererHeader) {
-		Url url = urlService.findVerifiedOneByShortened(shortened);
-		Referer referer = Referer.fromRefererHeader(refererHeader);
+		Referer referer = Referer.from(refererHeader);
+
+		URI redirectUrl = urlService.getRedirectUrl(
+			UrlRedirectQuery.of(shortened, referer));
+
+		UrlRedirectResponse response = UrlRedirectResponse.from(redirectUrl);
 
 		return ResponseEntity
 			.status(MOVED_PERMANENTLY)
-			.body(url.getOriginal());
+			.body(response);
 	}
 
 	@GetMapping("/{shortenedFollowedByPlusSign:[A-Za-z0-9]+[+]$}")

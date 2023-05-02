@@ -5,7 +5,10 @@ import java.net.URI;
 import com.google.common.net.InternetDomainName;
 
 import dev.saintho.mytly.entity.RefererEngagement;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Referer {
 	DIRECT{
 		@Override
@@ -28,7 +31,7 @@ public enum Referer {
 
 	public abstract void engage(RefererEngagement refererEngagement);
 
-	public static Referer fromRefererHeader(String refererHeader) {
+	public static Referer from(String refererHeader) {
 		if (refererHeader == null) {
 			return DIRECT;
 		}

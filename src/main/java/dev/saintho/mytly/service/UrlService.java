@@ -2,6 +2,7 @@ package dev.saintho.mytly.service;
 
 import static dev.saintho.mytly.exception.ExceptionType.*;
 
+import java.net.URI;
 import java.util.Optional;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dev.saintho.mytly.dto.command.UrlDeleteCommand;
 import dev.saintho.mytly.dto.command.UrlShortCommand;
+import dev.saintho.mytly.dto.query.UrlRedirectQuery;
 import dev.saintho.mytly.entity.Url;
 import dev.saintho.mytly.event.dto.UrlCreateEvent;
 import dev.saintho.mytly.exception.MytlyException;
@@ -24,6 +26,12 @@ public class UrlService {
 	private final UrlRepository urlRepository;
 	private final UrlGenerator urlGenerator;
 	private final ApplicationEventPublisher eventPublisher;
+
+	public URI getRedirectUrl(UrlRedirectQuery query) {
+		Url url = findVerifiedOneByShortened(query.getShortened());
+
+		return URI.create(url.getOriginal());
+	}
 
 	public Url shortUrl(UrlShortCommand command) {
 		Optional<Url> urlOptional = urlRepository.findByOriginal(command.getOriginal());
