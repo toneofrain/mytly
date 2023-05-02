@@ -1,4 +1,4 @@
-package dev.saintho.mytly.controller;
+package dev.saintho.mytly.web.v1.controller;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.saintho.mytly.dto.command.UrlDeleteByShortenedCommand;
-import dev.saintho.mytly.dto.command.UrlShortCommand;
-import dev.saintho.mytly.dto.query.Referer;
-import dev.saintho.mytly.dto.query.UrlRedirectQuery;
-import dev.saintho.mytly.dto.request.UrlPostRequest;
-import dev.saintho.mytly.dto.response.UrlPostResponse;
-import dev.saintho.mytly.dto.response.UrlRedirectResponse;
-import dev.saintho.mytly.entity.Url;
+import dev.saintho.mytly.web.v1.dto.command.UrlDeleteByShortenedCommand;
+import dev.saintho.mytly.web.v1.dto.command.UrlShortCommand;
+import dev.saintho.mytly.web.v1.dto.query.Referer;
+import dev.saintho.mytly.web.v1.dto.query.UrlRedirectQuery;
+import dev.saintho.mytly.web.v1.dto.request.UrlPostRequest;
+import dev.saintho.mytly.web.v1.dto.response.UrlPostResponse;
+import dev.saintho.mytly.web.v1.dto.response.UrlRedirectResponse;
+import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.service.UrlService;
 import lombok.RequiredArgsConstructor;
 

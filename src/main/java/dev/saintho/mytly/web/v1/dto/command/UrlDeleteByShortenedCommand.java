@@ -1,4 +1,4 @@
-package dev.saintho.mytly.dto.command;
+package dev.saintho.mytly.web.v1.dto.command;
 
 import lombok.Getter;
 

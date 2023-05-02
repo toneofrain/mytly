@@ -1,10 +1,9 @@
-package dev.saintho.mytly.entity;
+package dev.saintho.mytly.domain.entity;
 
 import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;

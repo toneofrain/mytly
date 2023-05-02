@@ -1,6 +1,6 @@
-package dev.saintho.mytly.dto.response;
+package dev.saintho.mytly.web.v1.dto.response;
 
-import dev.saintho.mytly.entity.Url;
+import dev.saintho.mytly.domain.entity.Url;
 import lombok.Getter;
 
 @Getter

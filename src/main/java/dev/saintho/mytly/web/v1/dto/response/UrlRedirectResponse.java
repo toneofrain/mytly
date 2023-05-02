@@ -1,4 +1,4 @@
-package dev.saintho.mytly.dto.response;
+package dev.saintho.mytly.web.v1.dto.response;
 
 import java.net.URI;
 

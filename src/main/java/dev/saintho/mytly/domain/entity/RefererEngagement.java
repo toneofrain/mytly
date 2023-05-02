@@ -1,4 +1,4 @@
-package dev.saintho.mytly.entity;
+package dev.saintho.mytly.domain.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

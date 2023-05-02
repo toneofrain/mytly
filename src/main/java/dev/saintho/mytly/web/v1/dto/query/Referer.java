@@ -1,10 +1,10 @@
-package dev.saintho.mytly.dto.query;
+package dev.saintho.mytly.web.v1.dto.query;
 
 import java.net.URI;
 
 import com.google.common.net.InternetDomainName;
 
-import dev.saintho.mytly.entity.RefererEngagement;
+import dev.saintho.mytly.domain.entity.RefererEngagement;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

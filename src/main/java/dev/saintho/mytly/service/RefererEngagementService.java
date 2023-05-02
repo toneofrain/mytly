@@ -3,8 +3,8 @@ package dev.saintho.mytly.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import dev.saintho.mytly.entity.RefererEngagement;
-import dev.saintho.mytly.entity.Url;
+import dev.saintho.mytly.domain.entity.RefererEngagement;
+import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.repository.RefererEngagementRepository;
 import lombok.RequiredArgsConstructor;
 
