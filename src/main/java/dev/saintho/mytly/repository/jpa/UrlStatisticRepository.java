@@ -3,10 +3,11 @@ package dev.saintho.mytly.repository.jpa;
 import java.time.LocalDate;
 import java.util.List;
 
-import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticResponse;
+import dev.saintho.mytly.api.v1.urls.dto.response.DailyStats;
+import dev.saintho.mytly.api.v1.urls.dto.response.UrlRefererStats;
 
 public interface UrlStatisticRepository {
-	UrlStatisticResponse.UrlRefererStats findUrlRefererStatsByShortened(String shortened);
+	UrlRefererStats findUrlRefererStatsByShortened(String shortened);
 
-	List<UrlStatisticResponse.DailyStats> findDailyStatsForAWeekByShortened(String shortened, LocalDate lastDay);
+	List<DailyStats> findDailyStatsForAWeekByShortened(String shortened, LocalDate lastDay);
 }

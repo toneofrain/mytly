@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import dev.saintho.mytly.api.v1.urls.dto.response.DailyStats;
+import dev.saintho.mytly.api.v1.urls.dto.response.UrlRefererStats;
 import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticResponse;
 import dev.saintho.mytly.repository.jpa.UrlStatisticRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +16,12 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 @RequiredArgsConstructor
 public class UrlStatisticService {
-	private UrlStatisticRepository urlStatisticRepository;
+	private final UrlStatisticRepository urlStatisticRepository;
 
 	public UrlStatisticResponse getUrlStatisticForAWeekByShortened(String shortened, LocalDate lastDay) {
-		UrlStatisticResponse.UrlRefererStats urlRefererStats =
+		UrlRefererStats urlRefererStats =
 			urlStatisticRepository.findUrlRefererStatsByShortened(shortened);
-		List<UrlStatisticResponse.DailyStats> dailyStatsForAWeek =
+		List<DailyStats> dailyStatsForAWeek =
 			urlStatisticRepository.findDailyStatsForAWeekByShortened(shortened, lastDay);
 
 		return UrlStatisticResponse.of(urlRefererStats, dailyStatsForAWeek);

@@ -17,7 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticResponse;
+import dev.saintho.mytly.api.v1.urls.dto.response.DailyStats;
+import dev.saintho.mytly.api.v1.urls.dto.response.UrlRefererStats;
 import dev.saintho.mytly.domain.entity.RefererEngagement;
 import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.exception.MytlyException;
@@ -32,19 +33,19 @@ public class QueryDSLUrlStatisticRepository implements UrlStatisticRepository {
 
 	@Transactional
 	@Override
-	public UrlStatisticResponse.UrlRefererStats findUrlRefererStatsByShortened(String shortened) {
+	public UrlRefererStats findUrlRefererStatsByShortened(String shortened) {
 		RefererEngagement found =
 			findRefererEngagementByShortened(shortened)
 			.orElseGet(() -> createRefererEngagementFromShortened(shortened));
 
-		return UrlStatisticResponse.UrlRefererStats.from(found);
+		return UrlRefererStats.from(found);
 	}
 
 	@Override
-	public List<UrlStatisticResponse.DailyStats> findDailyStatsForAWeekByShortened(String shortened, LocalDate lastDay) {
+	public List<DailyStats> findDailyStatsForAWeekByShortened(String shortened, LocalDate lastDay) {
 
 		return queryFactory
-			.select(Projections.fields(UrlStatisticResponse.DailyStats.class,
+			.select(Projections.fields(DailyStats.class,
 				dailyEngagement.date,
 				dailyEngagement.count
 				))
