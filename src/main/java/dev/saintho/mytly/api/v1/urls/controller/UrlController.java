@@ -23,8 +23,10 @@ import dev.saintho.mytly.api.v1.urls.dto.query.UrlRedirectQuery;
 import dev.saintho.mytly.api.v1.urls.dto.request.UrlPostRequest;
 import dev.saintho.mytly.api.v1.urls.dto.response.UrlPostResponse;
 import dev.saintho.mytly.api.v1.urls.dto.response.UrlRedirectResponse;
+import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticResponse;
 import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.service.UrlService;
+import dev.saintho.mytly.service.UrlStatisticService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -32,6 +34,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UrlController {
 	private final UrlService urlService;
+	private final UrlStatisticService urlStatisticService;
 
 	@PostMapping
 	public ResponseEntity<UrlPostResponse> shortUrl(@RequestBody UrlPostRequest request) {
@@ -60,10 +63,13 @@ public class UrlController {
 	}
 
 	@GetMapping("/{shortenedFollowedByPlusSign:[A-Za-z0-9]+[+]$}")
-	public ResponseEntity<String> getUrlStats
-		(@PathVariable String shortenedFollowedByPlusSign) {
-		return ResponseEntity
-			.ok("good");
+	public ResponseEntity<UrlStatisticResponse> getUrlStatistics (@PathVariable String shortenedFollowedByPlusSign) {
+		String shortened = shortenedFollowedByPlusSign.substring(0, shortenedFollowedByPlusSign.length() - 1);
+
+		UrlStatisticResponse response =
+			urlStatisticService.getUrlStatisticForAWeekByShortened(shortened, LocalDate.now());
+
+		return ResponseEntity.ok(response);
 	}
 
 	@DeleteMapping("/{shortened}")
