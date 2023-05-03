@@ -1,4 +1,4 @@
-package dev.saintho.mytly.dto.request;
+package dev.saintho.mytly.api.v1.urls.dto.request;
 
 import java.time.LocalDateTime;
 

@@ -1,21 +1,23 @@
 package dev.saintho.mytly.service;
 
-
 import static dev.saintho.mytly.exception.ExceptionType.*;
 
+import java.net.URI;
 import java.util.Optional;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import dev.saintho.mytly.dto.command.UrlDeleteCommand;
-import dev.saintho.mytly.dto.command.UrlShortCommand;
-import dev.saintho.mytly.entity.Url;
+import dev.saintho.mytly.api.v1.urls.dto.command.UrlDeleteByShortenedCommand;
+import dev.saintho.mytly.api.v1.urls.dto.command.UrlShortCommand;
+import dev.saintho.mytly.api.v1.urls.dto.query.UrlRedirectQuery;
+import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.event.dto.UrlCreateEvent;
+import dev.saintho.mytly.event.dto.UrlRedirectEvent;
 import dev.saintho.mytly.exception.MytlyException;
 import dev.saintho.mytly.generator.url.UrlGenerator;
-import dev.saintho.mytly.repository.UrlRepository;
+import dev.saintho.mytly.repository.jpa.UrlRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -26,6 +28,15 @@ public class UrlService {
 	private final UrlGenerator urlGenerator;
 	private final ApplicationEventPublisher eventPublisher;
 
+	public URI getRedirectUrl(UrlRedirectQuery query) {
+		Url url = findVerifiedOneByShortened(query.getShortened());
+
+		eventPublisher.publishEvent(
+			UrlRedirectEvent.of(url, query.getReferer(), query.getRedirectDate()));
+
+		return URI.create(url.getOriginal());
+	}
+
 	public Url shortUrl(UrlShortCommand command) {
 		Optional<Url> urlOptional = urlRepository.findByOriginal(command.getOriginal());
 
@@ -34,12 +45,12 @@ public class UrlService {
 			.orElseGet(() -> createUrl(command));
 
 	}
-
-	public void deleteUrl(UrlDeleteCommand command) {
+	public void deleteUrlByShortened(UrlDeleteByShortenedCommand command) {
 		Url url = findVerifiedOneByShortened(command.getShortened());
 		urlRepository.delete(url);
 	}
 
+	@Transactional(readOnly = true)
 	public Url findVerifiedOneByShortened(String shortenend) {
 		Optional<Url> urlOptional = urlRepository.findByShortened(shortenend);
 

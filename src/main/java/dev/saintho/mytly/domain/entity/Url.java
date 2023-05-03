@@ -1,4 +1,4 @@
-package dev.saintho.mytly.entity;
+package dev.saintho.mytly.domain.entity;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import dev.saintho.mytly.dto.request.ExpirationPeriod;
+import dev.saintho.mytly.api.v1.urls.dto.request.ExpirationPeriod;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

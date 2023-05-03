@@ -25,7 +25,7 @@ springdoc:
     groups:
       enabled: true
   swagger-ui:
-    path: /openapi3-ui.html
+    path: /swagger-ui.html
   cache:
     disabled: true
   default-consumes-media-type: application/json;charset=UTF-8

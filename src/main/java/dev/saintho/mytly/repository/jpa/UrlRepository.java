@@ -1,10 +1,10 @@
-package dev.saintho.mytly.repository;
+package dev.saintho.mytly.repository.jpa;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import dev.saintho.mytly.entity.Url;
+import dev.saintho.mytly.domain.entity.Url;
 
 public interface UrlRepository extends JpaRepository<Url, Long> {
 	Optional<Url> findByShortened(String shortenend);
