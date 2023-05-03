@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import dev.saintho.mytly.event.dto.UrlCreateEvent;
 import dev.saintho.mytly.event.dto.UrlRedirectEvent;
+import dev.saintho.mytly.service.DailyEngagementService;
 import dev.saintho.mytly.service.RefererEngagementService;
 
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UrlEventListener {
 	private final RefererEngagementService refererEngagementService;
+	private final DailyEngagementService dailyEngagementService;
 
 	@EventListener
 	public void createRefererEngagement(UrlCreateEvent event) {
@@ -21,6 +23,7 @@ public class UrlEventListener {
 
 	@EventListener
 	public void updateEngagement(UrlRedirectEvent event) {
-		refererEngagementService.updateEngagementCountByRedirecting(event);
+		refererEngagementService.updateEngageCountByRedirecting(event);
+		dailyEngagementService.updateEngageCountByRedirecting(event);
 	}
 }

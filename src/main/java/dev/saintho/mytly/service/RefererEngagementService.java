@@ -24,7 +24,7 @@ public class RefererEngagementService {
 		return refererEngagementRepository.save(refererEngagement);
 	}
 
-	public void updateEngagementCountByRedirecting(UrlRedirectEvent event) {
+	public void updateEngageCountByRedirecting(UrlRedirectEvent event) {
 		RefererEngagement refererEngagement = findVerifiedOneByUrl(event.getUrl());
 		Referer referer = event.getReferer();
 

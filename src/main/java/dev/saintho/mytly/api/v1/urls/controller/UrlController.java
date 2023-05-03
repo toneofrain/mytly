@@ -3,6 +3,7 @@ package dev.saintho.mytly.api.v1.urls.controller;
 import static org.springframework.http.HttpStatus.*;
 
 import java.net.URI;
+import java.time.LocalDate;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,7 @@ public class UrlController {
 		Referer referer = Referer.from(refererHeader);
 
 		URI redirectUrl = urlService.getRedirectUrl(
-			UrlRedirectQuery.of(shortened, referer));
+			UrlRedirectQuery.of(shortened, referer, LocalDate.now()));
 
 		UrlRedirectResponse response = UrlRedirectResponse.from(redirectUrl);
 

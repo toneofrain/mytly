@@ -14,6 +14,7 @@ import dev.saintho.mytly.api.v1.urls.dto.command.UrlShortCommand;
 import dev.saintho.mytly.api.v1.urls.dto.query.UrlRedirectQuery;
 import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.event.dto.UrlCreateEvent;
+import dev.saintho.mytly.event.dto.UrlRedirectEvent;
 import dev.saintho.mytly.exception.MytlyException;
 import dev.saintho.mytly.generator.url.UrlGenerator;
 import dev.saintho.mytly.repository.jpa.UrlRepository;
@@ -29,6 +30,9 @@ public class UrlService {
 
 	public URI getRedirectUrl(UrlRedirectQuery query) {
 		Url url = findVerifiedOneByShortened(query.getShortened());
+
+		eventPublisher.publishEvent(
+			UrlRedirectEvent.of(url, query.getReferer(), query.getRedirectDate()));
 
 		return URI.create(url.getOriginal());
 	}

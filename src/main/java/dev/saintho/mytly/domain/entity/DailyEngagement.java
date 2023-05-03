@@ -24,9 +24,23 @@ public class DailyEngagement {
 	@Column(name = "engage_date", nullable = false)
 	private LocalDate date;
 	@Column(name = "engage_count", nullable = false)
-	private int count;
+	private int count = 1;
 
 	@ManyToOne
 	@JoinColumn(name = "url_id")
 	private Url url;
+
+	public static DailyEngagement of(Url url, LocalDate engageDate) {
+		DailyEngagement dailyEngagement = new DailyEngagement();
+
+		dailyEngagement.url = url;
+		dailyEngagement.date = engageDate;
+
+		return dailyEngagement;
+
+	}
+
+	public void engage() {
+		this.count++;
+	}
 }
