@@ -60,7 +60,7 @@ public class UrlController {
 	}
 
 	@GetMapping("/{shortenedFollowedByPlusSign:[A-Za-z0-9]+[+]$}")
-	public ResponseEntity<String> getUrlStats
+	public ResponseEntity<String> getUrlStatistics
 		(@PathVariable String shortenedFollowedByPlusSign) {
 		return ResponseEntity
 			.ok("good");
