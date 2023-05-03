@@ -5,7 +5,7 @@ import static org.springframework.http.HttpStatus.*;
 import java.net.URI;
 import java.time.LocalDate;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,6 @@ import dev.saintho.mytly.api.v1.urls.dto.query.Referer;
 import dev.saintho.mytly.api.v1.urls.dto.query.UrlRedirectQuery;
 import dev.saintho.mytly.api.v1.urls.dto.request.UrlPostRequest;
 import dev.saintho.mytly.api.v1.urls.dto.response.UrlPostResponse;
-import dev.saintho.mytly.api.v1.urls.dto.response.UrlRedirectResponse;
 import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticResponse;
 import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.service.UrlService;
@@ -43,23 +42,24 @@ public class UrlController {
 		UrlPostResponse response = UrlPostResponse.from(url);
 
 		return ResponseEntity
-			.status(HttpStatus.CREATED)
+			.status(CREATED)
 			.body(response);
 	}
 
 	@GetMapping("/{shortened:[A-Za-z0-9]+}")
-	public ResponseEntity<UrlRedirectResponse> getRedirectUrl
+	public ResponseEntity<Void> getRedirectUrl
 		(@PathVariable String shortened, @RequestHeader(value = "Referer", required = false) String refererHeader) {
 		Referer referer = Referer.from(refererHeader);
 
 		URI redirectUrl = urlService.getRedirectUrl(
 			UrlRedirectQuery.of(shortened, referer, LocalDate.now()));
 
-		UrlRedirectResponse response = UrlRedirectResponse.from(redirectUrl);
+		HttpHeaders headers = setRedirectUrlToLocatinHeader(redirectUrl);
 
 		return ResponseEntity
 			.status(MOVED_PERMANENTLY)
-			.body(response);
+			.headers(headers)
+			.build();
 	}
 
 	@GetMapping("/{shortenedFollowedByPlusSign:[A-Za-z0-9]+[+]$}")
@@ -80,5 +80,13 @@ public class UrlController {
 		return ResponseEntity
 			.noContent()
 			.build();
+	}
+
+	private HttpHeaders setRedirectUrlToLocatinHeader(URI redirectUrl) {
+		HttpHeaders headers = new HttpHeaders();
+
+		headers.setLocation(redirectUrl);
+
+		return headers;
 	}
 }
