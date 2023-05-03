@@ -2,6 +2,7 @@ package dev.saintho.mytly.api.v1.urls.dto.response;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import dev.saintho.mytly.domain.entity.RefererEngagement;
 import dev.saintho.mytly.domain.entity.Url;
@@ -13,13 +14,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UrlStatisticResponse {
 	private UrlRefererStats urlRefererStats;
-	private DailyStats dailyStatsForTheLastWeek;
+	private List<DailyStats> dailyStatsForTheLastWeek;
 
-	public static UrlStatisticResponse of(UrlRefererStats urlRefererStats, DailyStats dailyStats) {
+	public static UrlStatisticResponse of(UrlRefererStats urlRefererStats, List<DailyStats> dailyStatses) {
 		UrlStatisticResponse response = new UrlStatisticResponse();
 
 		response.urlRefererStats = urlRefererStats;
-		response.dailyStatsForTheLastWeek = dailyStats;
+		response.dailyStatsForTheLastWeek = dailyStatses;
 
 		return response;
 	}
