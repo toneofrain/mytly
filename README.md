@@ -17,14 +17,31 @@ Mytly는 BASE62 기반 단축 URL 관리 서비스입니다.
 
 ---
 
+## 핵심기능 - 단축 URL 관리
 
+### 원본 URL 조회(리다이렉트)
+- 단축 URL과 연결된 원본 URL로 리다이렉트
+- 만료/삭제된 단축 URL에 대한 요청에 응답하지 않는다.
 
-## Architecture
+### 단축 URL 생성
+- 입력받은 원본 URL과 만료 옵션에 따른 URL 생성
 
-## ERD
+### 단축 URL 통계 조회
+- 해당 단축 URL에 대한 총조회수/리퍼러별 조회수/최근 일주일간 일별 조회수 통계를 제공한다.
+
+### 단축 URL 삭제
+- 이후에 이용가능하지 않도록 단축 URL을 삭제한다.
+- 삭제처리된 URL에 대한 리다이렉트/통계 조회 요청에 응답하지 않는다.
+
+---
+
+## 아키텍처
+### 운영배포
+
+### ERD
 <img src=https://user-images.githubusercontent.com/45251314/236216959-f754fc27-c19e-4f77-b4eb-d4a93fabc60f.png width="500"/>
 
-## Java Package
+### 자바 패키지 구조
 ```
 .
 └── dev
@@ -107,6 +124,8 @@ Mytly는 BASE62 기반 단축 URL 관리 서비스입니다.
                 └── validator
                     └── OriginalUrlValidator.java
 ```
+
+## 
 
 ## 트러블슈팅 및 회고
 [회고](https://velog.io/@saintho/URL%EB%8B%A8%EC%B6%95-00)
