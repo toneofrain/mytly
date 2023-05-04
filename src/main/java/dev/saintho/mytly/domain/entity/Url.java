@@ -1,10 +1,14 @@
 package dev.saintho.mytly.domain.entity;
 
+import static dev.saintho.mytly.domain.entity.UrlStatus.*;
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,6 +33,9 @@ public class Url {
 	private String shortened;
 	@Column(nullable = false, updatable = false, unique = true)
 	private String original;
+	@Column(name = "url_status", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private UrlStatus status = AVAILABLE;
 	@CreatedDate
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdAt;
