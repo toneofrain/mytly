@@ -15,7 +15,7 @@ public class OriginalUrlValidator implements ConstraintValidator<OriginalUrlCons
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		if (value.isBlank()) {
+		if (value.isEmpty()) {
 			return false;
 		}
 

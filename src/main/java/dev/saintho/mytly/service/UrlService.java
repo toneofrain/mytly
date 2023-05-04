@@ -61,7 +61,7 @@ public class UrlService {
 
 	private Url reRequestUrl(Url url, UrlShortCommand command) {
 		if (command.getIsExpirable()) {
-			url.updateExpirationOption(true, command.getExpirationPeriod());
+			url.updateExpirationOption(true, command.getExpireAt());
 			return url;
 		}
 
@@ -94,7 +94,7 @@ public class UrlService {
 				.shortened(shortened)
 				.original(command.getOriginal())
 				.isExpirable(true)
-				.expireAt(command.getExpirationPeriod().getExpireAt())
+				.expireAt(command.getExpireAt())
 				.build();
 		}
 

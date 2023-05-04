@@ -16,7 +16,7 @@ import dev.saintho.mytly.validation.validator.OriginalUrlValidator;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = OriginalUrlValidator.class)
 public @interface OriginalUrlConstraint {
-	String message() default "Original Url must not be blank, and have the http or https prefix.";
+	String message() default "Original Url must not be null, and have the http or https prefix.";
 
 	Class<?>[] groups() default {};
 
