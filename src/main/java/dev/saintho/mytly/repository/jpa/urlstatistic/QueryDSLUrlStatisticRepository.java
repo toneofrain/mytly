@@ -102,6 +102,6 @@ public class QueryDSLUrlStatisticRepository implements UrlStatisticRepository {
 
 		return urlOptional
 			.orElseThrow(
-				() -> new MytlyException(URL_NOT_FOUND, "URL_ENTITY_CORRESPONDING_SUCH_SHORTENED_URL_NOT_FOUND"));
+				() -> new MytlyException(URL_NOT_FOUND, "Url corresponding such shrotened url is not found"));
 	}
 }
