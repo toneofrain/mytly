@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +37,7 @@ public class UrlController {
 	private final UrlStatisticService urlStatisticService;
 
 	@PostMapping
-	public ResponseEntity<UrlPostResponse> shortUrl(@RequestBody UrlPostRequest request) {
+	public ResponseEntity<UrlPostResponse> shortUrl(@Validated @RequestBody UrlPostRequest request) {
 		Url url = urlService.shortUrl(UrlShortCommand.from(request));
 
 		UrlPostResponse response = UrlPostResponse.from(url);
