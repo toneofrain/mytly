@@ -86,3 +86,6 @@
                 └── validator
                     └── OriginalUrlValidator.java
 ```
+
+## 트러블슈팅 및 회고
+[회고](https://velog.io/@saintho/URL%EB%8B%A8%EC%B6%95-00)
