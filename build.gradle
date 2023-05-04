@@ -1,6 +1,7 @@
 buildscript {
 	ext {
 		queryDslVersion = "5.0.0"
+		restdocsApiSpecVersion = '0.16.0'
 	}
 }
 
@@ -8,9 +9,11 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.12-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+
 	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
-	id 'org.asciidoctor.jvm.convert' version '3.3.2'
-	id 'com.epages.restdocs-api-spec' version '0.16.0'
+
+	id 'com.epages.restdocs-api-spec' version "${restdocsApiSpecVersion}"
+	id 'org.hidetake.swagger.generator' version '2.18.2'
 }
 
 jar {
@@ -25,7 +28,6 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
-	asciidoctorExtensions
 }
 
 repositories {
@@ -39,59 +41,62 @@ ext {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+	implementation (
+			'org.springframework.boot:spring-boot-starter-data-jpa',
+			'org.springframework.boot:spring-boot-starter-validation',
+			'org.springframework.boot:spring-boot-starter-web',
 
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+			'com.google.code.gson:gson:2.10.1',
+			'com.google.guava:guava:31.1-jre',
 
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
+			"com.querydsl:querydsl-jpa:${queryDslVersion}",
 
-	implementation 'com.google.guava:guava:31.1-jre'
+			'org.springdoc:springdoc-openapi-ui:1.6.12'
+	)
 
-	compileOnly 'org.projectlombok:lombok'
+	compileOnly (
+			'org.projectlombok:lombok'
+	)
 
-	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'com.mysql:mysql-connector-j'
+	runtimeOnly (
+			'com.h2database:h2',
+			'com.mysql:mysql-connector-j'
+	)
 
-	annotationProcessor 'org.projectlombok:lombok'
-	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+	annotationProcessor (
+			'org.projectlombok:lombok',
+			"com.querydsl:querydsl-apt:${queryDslVersion}"
+	)
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.16.0'
-	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.16.0'
-	testAnnotationProcessor 'org.projectlombok:lombok'
+	testImplementation (
+			'org.springframework.boot:spring-boot-starter-test',
 
-	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+			'org.springframework.restdocs:spring-restdocs-mockmvc',
+			"com.epages:restdocs-api-spec-mockmvc:${restdocsApiSpecVersion}"
+	)
 }
 
 tasks.named('test') {
-	outputs.dir snippetsDir
 	useJUnitPlatform()
 }
 
-tasks.named('asciidoctor') {
-	configurations 'asciidoctorExtensions'
-	inputs.dir snippetsDir
-	dependsOn test
-}
+tasks.withType(GenerateSwaggerUI) {
+	dependsOn 'openapi3'
 
-task copyDocument(type: Copy) {
-	dependsOn asciidoctor            // (8-1)
-	from file("${asciidoctor.outputDir}")   // (8-2)
-	into file("src/main/resources/static/docs")   // (8-3)
-}
+	delete file('src/main/resources/static/docs/')
+	copy {
+		from "build/resources/main/static/docs"
+		into "src/main/resources/static/docs/"
 
-build {
-	dependsOn copyDocument  // (9) 빌드되기전 copyDocument task 실행
-}
-
-bootJar {
-	dependsOn copyDocument    // (10-1) bootJar 실행되기전 copyDocument task 실행
-	from ("${asciidoctor.outputDir}") {  // (10-2) bootJar에 asciidoctor task에서 생성된 html 파일 추가
-		into 'static/docs'     // (10-3) bootJar에 추가될 경로
 	}
+}
+
+bootJar{
+	dependsOn(':openapi3')
+}
+
+openapi3 {
+	outputDirectory = 'build/resources/main/static/docs'
 }
 
 def querydslDir = "$buildDir/generated/querydsl"
