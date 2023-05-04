@@ -152,7 +152,9 @@ Mytly는 BASE62 기반 단축 URL 관리 REST API 서비스입니다.
 ## 추후 작업
 
 ### 1. Source
-- 저장된 단축 URL이 많아질수록 충돌의 가능성이 높아지는 문제 때문에 미리 Source를 생성해서 관리하는 것으로 변경하려고 합니다.
+- 저장된 단축 URL이 많아질수록 충돌의 가능성이 높아지는 문제 때문에 미리 Source를 생성해서 관리하는 것으로 변경
+- Source와 사용 여부 flag를 저장
+- 생성/삭제가 없으므로 NoSQL 사용하고자 함
 
 ### 2. Spring REST Docs와 Swagger 연동
 
