@@ -1,7 +1,7 @@
 # Mytly
 
 ## ERD
-<img src=https://user-images.githubusercontent.com/45251314/236216959-f754fc27-c19e-4f77-b4eb-d4a93fabc60f.png width="400"/>
+<img src=https://user-images.githubusercontent.com/45251314/236216959-f754fc27-c19e-4f77-b4eb-d4a93fabc60f.png width="500"/>
 
 ## Package
 ```
