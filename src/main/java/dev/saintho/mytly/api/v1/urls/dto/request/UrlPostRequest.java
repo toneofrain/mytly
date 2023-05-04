@@ -2,12 +2,12 @@ package dev.saintho.mytly.api.v1.urls.dto.request;
 
 import javax.validation.constraints.NotNull;
 
-import dev.saintho.mytly.validation.annotation.OriginalUrlConstraint;
+import dev.saintho.mytly.validation.annotation.ValidOriginalUrl;
 import lombok.Getter;
 
 @Getter
 public class UrlPostRequest {
-	@OriginalUrlConstraint
+	@ValidOriginalUrl
 	private String original;
 	@NotNull(message = "IsExpirable must not be null.")
 	private Boolean isExpirable;

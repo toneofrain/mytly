@@ -3,13 +3,13 @@ package dev.saintho.mytly.validation.validator;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import dev.saintho.mytly.validation.annotation.OriginalUrlConstraint;
+import dev.saintho.mytly.validation.annotation.ValidOriginalUrl;
 
-public class OriginalUrlValidator implements ConstraintValidator<OriginalUrlConstraint, String> {
+public class OriginalUrlValidator implements ConstraintValidator<ValidOriginalUrl, String> {
 	private final String httpPrefix = "http://";
 	private final String httpsPrefix = "https://";
 	@Override
-	public void initialize(OriginalUrlConstraint constraintAnnotation) {
+	public void initialize(ValidOriginalUrl constraintAnnotation) {
 		ConstraintValidator.super.initialize(constraintAnnotation);
 	}
 
