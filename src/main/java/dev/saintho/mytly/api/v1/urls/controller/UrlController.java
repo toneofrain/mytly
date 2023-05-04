@@ -75,7 +75,7 @@ public class UrlController {
 		return ResponseEntity.ok(response);
 	}
 
-	@DeleteMapping("/{shortened}")
+	@DeleteMapping("/{shortened:[A-Za-z0-9]+}")
 	public ResponseEntity<Void> deleteUrl(@PathVariable String shortened) {
 		urlService.deleteUrlByShortened(
 			UrlDeleteByShortenedCommand.from(shortened));

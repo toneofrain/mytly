@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dev.saintho.mytly.domain.entity.DailyEngagement;
 import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.event.dto.UrlRedirectEvent;
-import dev.saintho.mytly.repository.jpa.DailyEngagementRepository;
+import dev.saintho.mytly.repository.jpa.dailyengagement.DailyEngagementRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service

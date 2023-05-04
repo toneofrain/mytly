@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ExceptionType {
 	URL_NOT_FOUND(NOT_FOUND, "URL_NOT_FOUND");
-	;
+
 	private final HttpStatus status;
 	private final String message;
 }

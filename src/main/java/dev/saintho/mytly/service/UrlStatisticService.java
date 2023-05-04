@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dev.saintho.mytly.api.v1.urls.dto.response.DailyStats;
 import dev.saintho.mytly.api.v1.urls.dto.response.UrlRefererStats;
 import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticResponse;
-import dev.saintho.mytly.repository.jpa.UrlStatisticRepository;
+import dev.saintho.mytly.repository.jpa.urlstatistic.UrlStatisticRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service

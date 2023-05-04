@@ -9,14 +9,16 @@ import lombok.Getter;
 public class UrlShortCommand {
 	private String original;
 	private Boolean isExpirable;
+	private LocalDateTime requestedAt;
 	private LocalDateTime expireAt;
 
-	public static UrlShortCommand of(UrlPostRequest request, LocalDateTime startDateTime) {
+	public static UrlShortCommand of(UrlPostRequest request, LocalDateTime requestedAt) {
 		UrlShortCommand command = new UrlShortCommand();
 
 		command.original = request.getOriginal();
 		command.isExpirable = request.getIsExpirable();
-		command.expireAt = request.getExpirationPeriod().getExpireAt(startDateTime);
+		command.requestedAt = requestedAt;
+		command.expireAt = request.getExpirationPeriod().getExpireAt(requestedAt);
 
 		return command;
 	}

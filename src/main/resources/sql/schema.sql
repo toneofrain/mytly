@@ -17,8 +17,7 @@ CREATE TABLE url (
     expirable_yn TINYINT(1) NOT NULL DEFAULT 0,
     expire_at TIMESTAMP,
     PRIMARY KEY (id),
-    UNIQUE INDEX ux_shortened (shortened),
-    UNIQUE INDEX ux_original (original)
+    UNIQUE INDEX ux_shortened (shortened)
 );
 
 CREATE TABLE referer_engagement (

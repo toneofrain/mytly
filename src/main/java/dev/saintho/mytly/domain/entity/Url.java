@@ -31,7 +31,7 @@ public class Url {
 	private Long id;
 	@Column(nullable = false, updatable = false, unique = true)
 	private String shortened;
-	@Column(nullable = false, updatable = false, unique = true)
+	@Column(nullable = false, updatable = false)
 	private String original;
 	@Column(name = "url_status", nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -63,5 +63,17 @@ public class Url {
 
 	public void softDelete() {
 		this.status = DELETED;
+	}
+
+	public boolean isAvailableAtTheTime(LocalDateTime dateTime) {
+		return !isExpiredAtTheTime(dateTime) && !isDeleted();
+	}
+
+	public boolean isExpiredAtTheTime(LocalDateTime dateTime) {
+		return this.status == EXPIRED || dateTime.isAfter(this.expireAt);
+	}
+
+	public boolean isDeleted() {
+		return this.status == DELETED;
 	}
 }

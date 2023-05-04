@@ -1,4 +1,4 @@
-package dev.saintho.mytly.repository.jpa;
+package dev.saintho.mytly.repository.jpa.urlstatistic;
 
 import static dev.saintho.mytly.domain.entity.QDailyEngagement.*;
 import static dev.saintho.mytly.domain.entity.QRefererEngagement.*;

@@ -1,4 +1,4 @@
-package dev.saintho.mytly.repository.jpa;
+package dev.saintho.mytly.repository.jpa.refererengagement;
 
 import java.util.Optional;
 

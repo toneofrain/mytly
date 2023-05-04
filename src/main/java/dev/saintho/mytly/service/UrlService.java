@@ -17,7 +17,7 @@ import dev.saintho.mytly.event.dto.UrlCreateEvent;
 import dev.saintho.mytly.event.dto.UrlRedirectEvent;
 import dev.saintho.mytly.exception.MytlyException;
 import dev.saintho.mytly.generator.url.UrlGenerator;
-import dev.saintho.mytly.repository.jpa.UrlRepository;
+import dev.saintho.mytly.repository.jpa.url.UrlRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -38,7 +38,7 @@ public class UrlService {
 	}
 
 	public Url shortUrl(UrlShortCommand command) {
-		Optional<Url> urlOptional = urlRepository.findByOriginal(command.getOriginal());
+		Optional<Url> urlOptional = urlRepository.findLatestOneByOriginal(command.getOriginal());
 
 		return urlOptional
 			.map(url -> reRequestUrl(url, command))
@@ -60,6 +60,10 @@ public class UrlService {
 	}
 
 	private Url reRequestUrl(Url url, UrlShortCommand command) {
+		if (!url.isAvailableAtTheTime(command.getRequestedAt())) {
+			return createUrl(command);
+		}
+
 		if (command.getIsExpirable()) {
 			url.updateExpirationOption(true, command.getExpireAt());
 			return url;
