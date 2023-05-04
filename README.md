@@ -4,10 +4,16 @@ Mytly는 BASE62 기반 단축 URL 관리 서비스입니다.
 
 
 ### 프로젝트 기간
-2023.04.21 ~
+- 2023.04.21 ~
+
+### 환경
+- Java 11 (openjdk 11.0.17)
+- Spring Boot 2.7.12
+- Mysql 8.0.33
+- Ubuntu 22.04.1 i5-8250U 8gb ram
 
 ### 배포
-~~https://mytly.saintho.dev (일시중단)~~
+- ~~https://mytly.saintho.dev (일시중단)~~
 
 ---
 
