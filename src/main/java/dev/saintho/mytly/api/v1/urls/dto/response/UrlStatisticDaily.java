@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class DailyStats {
+public class UrlStatisticDaily {
 	private LocalDate date;
 	private int count;
 }

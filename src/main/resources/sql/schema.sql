@@ -12,12 +12,12 @@ CREATE TABLE url (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     shortened VARCHAR(255) NOT NULL,
     original VARCHAR(255) NOT NULL,
+    url_status VARCHAR(255) NOT NULL DEFAULT 'AVAILABLE',
     created_at TIMESTAMP NOT NULL,
     expirable_yn TINYINT(1) NOT NULL DEFAULT 0,
     expire_at TIMESTAMP,
     PRIMARY KEY (id),
-    UNIQUE INDEX ux_shortened (shortened),
-    UNIQUE INDEX ux_original (original)
+    UNIQUE INDEX ux_shortened (shortened)
 );
 
 CREATE TABLE referer_engagement (

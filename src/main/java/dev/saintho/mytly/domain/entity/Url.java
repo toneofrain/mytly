@@ -1,10 +1,14 @@
 package dev.saintho.mytly.domain.entity;
 
+import static dev.saintho.mytly.domain.entity.UrlStatus.*;
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,8 +31,11 @@ public class Url {
 	private Long id;
 	@Column(nullable = false, updatable = false, unique = true)
 	private String shortened;
-	@Column(nullable = false, updatable = false, unique = true)
+	@Column(nullable = false, updatable = false)
 	private String original;
+	@Column(name = "url_status", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private UrlStatus status = AVAILABLE;
 	@CreatedDate
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdAt;
@@ -52,5 +59,21 @@ public class Url {
 	public void setIsNotExpirable() {
 		this.isExpirable = false;
 		this.expireAt = null;
+	}
+
+	public void softDelete() {
+		this.status = DELETED;
+	}
+
+	public boolean isAvailableAtTheTime(LocalDateTime dateTime) {
+		return !isExpiredAtTheTime(dateTime) && !isDeleted();
+	}
+
+	public boolean isExpiredAtTheTime(LocalDateTime dateTime) {
+		return this.status == EXPIRED || dateTime.isAfter(this.expireAt);
+	}
+
+	public boolean isDeleted() {
+		return this.status == DELETED;
 	}
 }

@@ -9,14 +9,20 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UrlStatisticResponse {
-	private UrlRefererStats urlRefererStats;
-	private List<DailyStats> dailyStatsForTheLastWeek;
+	private UrlStatisticUrlInfo urlInfo;
+	private UrlStatisticReferer urlStatisticReferer;
+	private List<UrlStatisticDaily> urlStatisticDailyForTheLastWeek;
 
-	public static UrlStatisticResponse of(UrlRefererStats urlRefererStats, List<DailyStats> dailyStatses) {
+	public static UrlStatisticResponse of(
+		UrlStatisticUrlInfo urlInfo,
+		UrlStatisticReferer urlStatisticReferer,
+		List<UrlStatisticDaily> urlStatisticDailies) {
+
 		UrlStatisticResponse response = new UrlStatisticResponse();
 
-		response.urlRefererStats = urlRefererStats;
-		response.dailyStatsForTheLastWeek = dailyStatses;
+		response.urlInfo = urlInfo;
+		response.urlStatisticReferer = urlStatisticReferer;
+		response.urlStatisticDailyForTheLastWeek = urlStatisticDailies;
 
 		return response;
 	}

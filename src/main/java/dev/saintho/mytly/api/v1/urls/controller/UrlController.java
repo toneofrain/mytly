@@ -29,7 +29,9 @@ import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.service.UrlService;
 import dev.saintho.mytly.service.UrlStatisticService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/urls")
 @RequiredArgsConstructor
@@ -67,6 +69,8 @@ public class UrlController {
 
 	@GetMapping("/{shortenedFollowedByPlusSign:[A-Za-z0-9]+[+]$}")
 	public ResponseEntity<UrlStatisticResponse> getUrlStatistics (@PathVariable String shortenedFollowedByPlusSign) {
+		log.error("컨트롤러 진입");
+
 		String shortened = shortenedFollowedByPlusSign.substring(0, shortenedFollowedByPlusSign.length() - 1);
 
 		UrlStatisticResponse response =
@@ -75,7 +79,7 @@ public class UrlController {
 		return ResponseEntity.ok(response);
 	}
 
-	@DeleteMapping("/{shortened}")
+	@DeleteMapping("/{shortened:[A-Za-z0-9]+}")
 	public ResponseEntity<Void> deleteUrl(@PathVariable String shortened) {
 		urlService.deleteUrlByShortened(
 			UrlDeleteByShortenedCommand.from(shortened));

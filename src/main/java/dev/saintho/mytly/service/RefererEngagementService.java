@@ -9,7 +9,7 @@ import dev.saintho.mytly.api.v1.urls.dto.query.Referer;
 import dev.saintho.mytly.domain.entity.RefererEngagement;
 import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.event.dto.UrlRedirectEvent;
-import dev.saintho.mytly.repository.jpa.RefererEngagementRepository;
+import dev.saintho.mytly.repository.jpa.refererengagement.RefererEngagementRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service

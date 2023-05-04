@@ -1,4 +1,4 @@
-package dev.saintho.mytly.repository.jpa;
+package dev.saintho.mytly.repository.jpa.urlstatistic;
 
 import static dev.saintho.mytly.domain.entity.QDailyEngagement.*;
 import static dev.saintho.mytly.domain.entity.QRefererEngagement.*;
@@ -17,8 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import dev.saintho.mytly.api.v1.urls.dto.response.DailyStats;
-import dev.saintho.mytly.api.v1.urls.dto.response.UrlRefererStats;
+import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticDaily;
+import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticReferer;
+import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticUrlInfo;
 import dev.saintho.mytly.domain.entity.RefererEngagement;
 import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.exception.MytlyException;
@@ -31,21 +32,39 @@ public class QueryDSLUrlStatisticRepository implements UrlStatisticRepository {
 	private final EntityManager entityManager;
 	private final JPAQueryFactory queryFactory;
 
+	@Override
+	public Optional<UrlStatisticUrlInfo> findUrlInfoByShortenend(String shortenend) {
+
+		return Optional.ofNullable(
+			queryFactory
+				.select(Projections.fields(UrlStatisticUrlInfo.class,
+					url.shortened,
+					url.original,
+					url.status.as("urlStatus"),
+					url.createdAt,
+					url.isExpirable,
+					url.expireAt
+				))
+				.from(url)
+				.where(url.shortened.eq(shortenend))
+				.fetchOne());
+	}
+
 	@Transactional
 	@Override
-	public UrlRefererStats findUrlRefererStatsByShortened(String shortened) {
-		RefererEngagement found =
+	public UrlStatisticReferer findUrlRefererStatsByShortened(String shortened) {
+		RefererEngagement refererEngagementFound =
 			findRefererEngagementByShortened(shortened)
 			.orElseGet(() -> createRefererEngagementFromShortened(shortened));
 
-		return UrlRefererStats.from(found);
+		return UrlStatisticReferer.from(refererEngagementFound);
 	}
 
 	@Override
-	public List<DailyStats> findDailyStatsForAWeekByShortened(String shortened, LocalDate lastDay) {
+	public List<UrlStatisticDaily> findDailyStatsForAWeekByShortened(String shortened, LocalDate lastDay) {
 
 		return queryFactory
-			.select(Projections.fields(DailyStats.class,
+			.select(Projections.fields(UrlStatisticDaily.class,
 				dailyEngagement.date,
 				dailyEngagement.count
 				))

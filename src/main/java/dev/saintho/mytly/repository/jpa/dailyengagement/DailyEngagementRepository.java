@@ -1,4 +1,4 @@
-package dev.saintho.mytly.repository.jpa;
+package dev.saintho.mytly.repository.jpa.dailyengagement;
 
 import java.time.LocalDate;
 import java.util.Optional;
