@@ -1,6 +1,6 @@
 # Mytly
 
-Mytly는 BASE62 기반 단축 URL 관리 서비스입니다.
+Mytly는 BASE62 기반 단축 URL 관리 REST API 서비스입니다.
 
 
 ### 프로젝트 기간
@@ -36,7 +36,9 @@ Mytly는 BASE62 기반 단축 URL 관리 서비스입니다.
 ---
 
 ## 아키텍처
-### 운영배포
+### 운영
+
+### CI/CD
 
 ### ERD
 <img src=https://user-images.githubusercontent.com/45251314/236216959-f754fc27-c19e-4f77-b4eb-d4a93fabc60f.png width="500"/>
@@ -125,7 +127,25 @@ Mytly는 BASE62 기반 단축 URL 관리 서비스입니다.
                     └── OriginalUrlValidator.java
 ```
 
-## 
+## 고민한 것
+
+### 1. BASE62 
+- Encoding Scheme은 URL Safe한 BASE62를 선택했습니다
+- 단축 URL의 길이는 6~7로 약 3억5천만개의 단축 URL 생성 가능합니다
+- 추후 단축 URL의 길이를 확장할 수 있습니다.
+
+### 2. Source
+- 단축 URL로 Encoding할 Source를 선택해야 합니다.
+- pk값의 경우 단축 URL의 길이가 계속 변하고 Decoding시 pk값이 노출되는 문제가 있다고 생각했습니다.
+- 원본 URL의 해시값이나 UUID의 경우 단축 URL의 길이가 길어지고, 일부를 잘라서 인코딩할 경우 충돌의 가능성이 높아집니다.
+- 임의의 6~7자리 62진수를 생성후 이를 BASE62로 인코딩하는 것으로 결정했습니다.
+- db에 exist 쿼리를 던져 중복 시에 단축 URL을 재생성하는데, 저장된 단축 URL이 많아질수록 충돌의 가능성이 높아져 exist 쿼리의 횟수가 증가하는 문제가 있습니다.
+
+### Soft Delete vs Hard Delete
+- 초기엔 단축 URL 재사용이 가능하도록 단축 URL 삭제시 Hard Delete로 구현했습니다.
+- 단축 URL 재사용시 연결된 원본 URL이 변해 이로 인한 혼동이나 악용 가능성이 있다고 생각하여 Soft Delete하는 것으로 변경했습니다.
+- 삭제처리된 단축 URL에 대한 리다이렉트, 통계 조회 요청에는 응답하지 않습니다.
+- 삭제처리된 단축 URL에 연결된 원본 URL 생성 요청시에는 새로 단축 URL을 생성하여 연결합니다.
 
 ## 트러블슈팅 및 회고
 [회고](https://velog.io/@saintho/URL%EB%8B%A8%EC%B6%95-00)
