@@ -4,6 +4,7 @@ import static org.springframework.http.HttpStatus.*;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,8 @@ public class UrlController {
 
 	@PostMapping
 	public ResponseEntity<UrlPostResponse> shortUrl(@Validated @RequestBody UrlPostRequest request) {
-		Url url = urlService.shortUrl(UrlShortCommand.from(request));
+		Url url = urlService.shortUrl(
+			UrlShortCommand.of(request, LocalDateTime.now()));
 
 		UrlPostResponse response = UrlPostResponse.from(url);
 

@@ -17,14 +17,6 @@ public class GlobalExceptionAdvice {
 			.body(exception.getMessage());
 	}
 
-	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<String> handleRuntimeException(RuntimeException exception) {
-
-		return ResponseEntity
-			.internalServerError()
-			.body(exception.getMessage());
-	}
-
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<String> handleVMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
 		StringBuilder sb = new StringBuilder();
@@ -44,5 +36,13 @@ public class GlobalExceptionAdvice {
 		return ResponseEntity
 			.badRequest()
 			.body(sb.toString());
+	}
+
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<String> handleRuntimeException(RuntimeException exception) {
+
+		return ResponseEntity
+			.internalServerError()
+			.body(exception.getMessage());
 	}
 }
