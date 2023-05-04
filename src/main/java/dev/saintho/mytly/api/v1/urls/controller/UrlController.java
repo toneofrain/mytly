@@ -29,9 +29,7 @@ import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticResponse;
 import dev.saintho.mytly.api.v1.urls.dto.result.UrlShortResult;
 import dev.saintho.mytly.service.UrlService;
 import dev.saintho.mytly.service.UrlStatisticService;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping("/api/v1/urls")
 public class UrlController {
@@ -80,8 +78,6 @@ public class UrlController {
 
 	@GetMapping("/{shortenedFollowedByPlusSign:[A-Za-z0-9]+[+]$}")
 	public ResponseEntity<UrlStatisticResponse> getUrlStatistics (@PathVariable String shortenedFollowedByPlusSign) {
-		log.error("컨트롤러 진입");
-
 		String shortened = shortenedFollowedByPlusSign.substring(0, shortenedFollowedByPlusSign.length() - 1);
 
 		UrlStatisticResponse response =

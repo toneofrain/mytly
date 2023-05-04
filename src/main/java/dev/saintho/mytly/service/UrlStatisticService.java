@@ -16,9 +16,6 @@ import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticUrlInfo;
 import dev.saintho.mytly.exception.MytlyException;
 import dev.saintho.mytly.repository.jpa.urlstatistic.UrlStatisticRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -26,8 +23,6 @@ public class UrlStatisticService {
 	private final UrlStatisticRepository urlStatisticRepository;
 
 	public UrlStatisticResponse getUrlStatisticForAWeekByShortened(String shortened, LocalDate lastDay) {
-		log.error("서비스 진입");
-
 		Optional<UrlStatisticUrlInfo> urlInfoOptional = urlStatisticRepository.findUrlInfoByShortenend(shortened);
 		UrlStatisticUrlInfo urlInfo = urlInfoOptional
 			.orElseThrow(() -> new MytlyException(URL_NOT_FOUND));
