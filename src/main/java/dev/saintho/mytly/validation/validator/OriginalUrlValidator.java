@@ -19,6 +19,10 @@ public class OriginalUrlValidator implements ConstraintValidator<ValidOriginalUr
 			return false;
 		}
 
+		if (value.length() > 255) {
+			return false;
+		}
+
 		return value.startsWith(httpPrefix) || value.startsWith(httpsPrefix);
 	}
 }
