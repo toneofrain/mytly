@@ -10,6 +10,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 	id 'org.asciidoctor.jvm.convert' version '3.3.2'
+	id 'com.epages.restdocs-api-spec' version '0.16.0'
 }
 
 jar {
@@ -24,6 +25,7 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	asciidoctorExtensions
 }
 
 repositories {
@@ -57,6 +59,11 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.16.0'
+	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.16.0'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+
+	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
 
 tasks.named('test') {
@@ -65,8 +72,26 @@ tasks.named('test') {
 }
 
 tasks.named('asciidoctor') {
+	configurations 'asciidoctorExtensions'
 	inputs.dir snippetsDir
 	dependsOn test
+}
+
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor            // (8-1)
+	from file("${asciidoctor.outputDir}")   // (8-2)
+	into file("src/main/resources/static/docs")   // (8-3)
+}
+
+build {
+	dependsOn copyDocument  // (9) 빌드되기전 copyDocument task 실행
+}
+
+bootJar {
+	dependsOn copyDocument    // (10-1) bootJar 실행되기전 copyDocument task 실행
+	from ("${asciidoctor.outputDir}") {  // (10-2) bootJar에 asciidoctor task에서 생성된 html 파일 추가
+		into 'static/docs'     // (10-3) bootJar에 추가될 경로
+	}
 }
 
 def querydslDir = "$buildDir/generated/querydsl"
