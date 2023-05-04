@@ -1,9 +1,24 @@
 # Mytly
 
+Mytly는 BASE62 기반 단축 URL 관리 서비스입니다.
+
+
+### 프로젝트 기간
+2023.04.21 ~
+
+### 배포
+~~https://mytly.saintho.dev (일시중단)~~
+
+---
+
+
+
+## Architecture
+
 ## ERD
 <img src=https://user-images.githubusercontent.com/45251314/236216959-f754fc27-c19e-4f77-b4eb-d4a93fabc60f.png width="500"/>
 
-## Package
+## Java Package
 ```
 .
 └── dev
