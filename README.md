@@ -1,7 +1,7 @@
 # Mytly
 
 ## ERD
-https://www.erdcloud.com/d/z2BSaLEoubwegZTxz
+![erd](https://user-images.githubusercontent.com/45251314/236216959-f754fc27-c19e-4f77-b4eb-d4a93fabc60f.png)
 
 ## Package
 ```
