@@ -47,7 +47,7 @@ public class UrlService {
 	}
 	public void deleteUrlByShortened(UrlDeleteByShortenedCommand command) {
 		Url url = findVerifiedOneByShortened(command.getShortened());
-		urlRepository.delete(url);
+		url.softDelete();
 	}
 
 	@Transactional(readOnly = true)

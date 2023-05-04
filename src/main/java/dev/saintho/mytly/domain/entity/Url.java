@@ -60,4 +60,8 @@ public class Url {
 		this.isExpirable = false;
 		this.expireAt = null;
 	}
+
+	public void softDelete() {
+		this.status = DELETED;
+	}
 }
