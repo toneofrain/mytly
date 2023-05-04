@@ -1,18 +1,18 @@
 package dev.saintho.mytly.api.v1.urls.dto.response;
 
-import dev.saintho.mytly.domain.entity.Url;
+import dev.saintho.mytly.api.v1.urls.dto.result.UrlShortResult;
 import lombok.Getter;
 
 @Getter
 public class UrlPostResponse {
-	private String original;
-	private String shortened;
+	private String originalUrl;
+	private String shortenedUrl;
 
-	public static UrlPostResponse from(Url url) {
+	public static UrlPostResponse of(UrlShortResult result, String path) {
 		UrlPostResponse response = new UrlPostResponse();
 
-		response.original = url.getOriginal();
-		response.shortened = url.getShortened();
+		response.originalUrl = result.getOriginal();
+		response.shortenedUrl = path + result.getShortened();
 
 		return response;
 	}

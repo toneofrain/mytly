@@ -12,3 +12,8 @@ spring:
     url: ${H2_URL}
     username: mytly
     password: ${H2_PW}
+
+host:
+  name: http://localhost:8080
+  path: /api/v1/urls/
+

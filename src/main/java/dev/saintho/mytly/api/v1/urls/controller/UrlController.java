@@ -6,6 +6,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,26 +26,36 @@ import dev.saintho.mytly.api.v1.urls.dto.query.UrlRedirectQuery;
 import dev.saintho.mytly.api.v1.urls.dto.request.UrlPostRequest;
 import dev.saintho.mytly.api.v1.urls.dto.response.UrlPostResponse;
 import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticResponse;
-import dev.saintho.mytly.domain.entity.Url;
+import dev.saintho.mytly.api.v1.urls.dto.result.UrlShortResult;
 import dev.saintho.mytly.service.UrlService;
 import dev.saintho.mytly.service.UrlStatisticService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/urls")
-@RequiredArgsConstructor
 public class UrlController {
 	private final UrlService urlService;
 	private final UrlStatisticService urlStatisticService;
+	private final String prefix;
+
+	public UrlController(
+		UrlService urlService,
+		UrlStatisticService urlStatisticService,
+		@Value("${host.name}") String hostname,
+		@Value("${host.path}") String path) {
+
+		this.urlService = urlService;
+		this.urlStatisticService = urlStatisticService;
+		this.prefix = hostname + path;
+	}
 
 	@PostMapping
 	public ResponseEntity<UrlPostResponse> shortUrl(@Validated @RequestBody UrlPostRequest request) {
-		Url url = urlService.shortUrl(
+		UrlShortResult result = urlService.shortUrl(
 			UrlShortCommand.of(request, LocalDateTime.now()));
 
-		UrlPostResponse response = UrlPostResponse.from(url);
+		UrlPostResponse response = UrlPostResponse.of(result, prefix);
 
 		return ResponseEntity
 			.status(CREATED)

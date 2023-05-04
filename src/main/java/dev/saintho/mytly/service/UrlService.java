@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dev.saintho.mytly.api.v1.urls.dto.command.UrlDeleteByShortenedCommand;
 import dev.saintho.mytly.api.v1.urls.dto.command.UrlShortCommand;
 import dev.saintho.mytly.api.v1.urls.dto.query.UrlRedirectQuery;
+import dev.saintho.mytly.api.v1.urls.dto.result.UrlShortResult;
 import dev.saintho.mytly.domain.entity.Url;
 import dev.saintho.mytly.event.dto.UrlCreateEvent;
 import dev.saintho.mytly.event.dto.UrlRedirectEvent;
@@ -37,12 +38,14 @@ public class UrlService {
 		return URI.create(url.getOriginal());
 	}
 
-	public Url shortUrl(UrlShortCommand command) {
+	public UrlShortResult shortUrl(UrlShortCommand command) {
 		Optional<Url> urlOptional = urlRepository.findLatestOneByOriginal(command.getOriginal());
 
-		return urlOptional
+		Url verified = urlOptional
 			.map(url -> reRequestUrl(url, command))
 			.orElseGet(() -> createUrl(command));
+
+		return UrlShortResult.from(verified);
 
 	}
 	public void deleteUrlByShortened(UrlDeleteByShortenedCommand command) {

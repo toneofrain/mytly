@@ -12,3 +12,7 @@ spring:
     url: ${LOCAL_DB_URL}
     username: mytly
     password: ${LOCAL_DB_PW}
+
+host:
+  name: http://localhost:8080
+  path: /api/v1/urls/
