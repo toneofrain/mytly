@@ -22,6 +22,13 @@ public enum ExpirationPeriod {
 			.plus(months);
 	}
 
+	/**
+	 *
+	 * Json 역직렬화하여 ExpirationPeriod에 바인딩할 때 발생하는 HttpMessageNotReadalbeException을
+	 * MethodArgumentNotValidException 스펙으로 다루기 위한 메소드
+	 * null을 리턴할 수 있어 사용해서는 안 되고 추후 개선
+	 */
+
 	@JsonCreator
 	public static ExpirationPeriod createForDeserializing(String name) {
 		if (name.isEmpty()) {
