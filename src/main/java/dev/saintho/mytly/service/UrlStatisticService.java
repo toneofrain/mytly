@@ -23,18 +23,24 @@ public class UrlStatisticService {
 	private final UrlStatisticRepository urlStatisticRepository;
 
 	public UrlStatisticResponse getUrlStatisticForAWeekByShortened(String shortened, LocalDate lastDay) {
-		Optional<UrlStatisticUrlInfo> urlInfoOptional = urlStatisticRepository.findUrlInfoByShortenend(shortened);
-		UrlStatisticUrlInfo urlInfo = urlInfoOptional
-			.orElseThrow(() -> new MytlyException(URL_NOT_FOUND));
+		UrlStatisticUrlInfo urlInfo = findVerifiedUrlInfoByShortened(shortened);
 
 		checkUrlStatisticAvailable(urlInfo);
 
 		UrlStatisticReferer urlStatisticReferer =
 			urlStatisticRepository.findUrlRefererStatsByShortened(shortened);
+
 		List<UrlStatisticDaily> urlStatisticDailyForAWeek =
 			urlStatisticRepository.findDailyStatsForAWeekByShortened(shortened, lastDay);
 
 		return UrlStatisticResponse.of(urlInfo, urlStatisticReferer, urlStatisticDailyForAWeek);
+	}
+
+	private UrlStatisticUrlInfo findVerifiedUrlInfoByShortened(String shortened) {
+		Optional<UrlStatisticUrlInfo> urlInfoOptional = urlStatisticRepository.findUrlInfoByShortenend(shortened);
+
+		return urlInfoOptional
+			.orElseThrow(() -> new MytlyException(URL_NOT_FOUND));
 	}
 
 	private void checkUrlStatisticAvailable(UrlStatisticUrlInfo urlInfo) {
