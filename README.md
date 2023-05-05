@@ -38,8 +38,6 @@ Mytly는 BASE62 기반 단축 URL 관리 REST API 서비스입니다.
 ## 아키텍처
 ### 운영
 
-### CI/CD
-
 ### ERD
 <img src=https://user-images.githubusercontent.com/45251314/236216959-f754fc27-c19e-4f77-b4eb-d4a93fabc60f.png width="500"/>
 
