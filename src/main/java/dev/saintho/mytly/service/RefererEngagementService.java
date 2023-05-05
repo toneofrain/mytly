@@ -28,7 +28,7 @@ public class RefererEngagementService {
 		RefererEngagement refererEngagement = findVerifiedOneByUrl(event.getUrl());
 		Referer referer = event.getReferer();
 
-		referer.engage(refererEngagement);
+		referer.engageAtTheTime(refererEngagement, event.getRedirectDateTime());
 	}
 
 	@Transactional(readOnly = true)

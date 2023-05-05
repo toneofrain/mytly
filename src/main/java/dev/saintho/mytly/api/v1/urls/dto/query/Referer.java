@@ -1,6 +1,7 @@
 package dev.saintho.mytly.api.v1.urls.dto.query;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 
 import com.google.common.net.InternetDomainName;
 
@@ -12,24 +13,27 @@ import lombok.NoArgsConstructor;
 public enum Referer {
 	DIRECT{
 		@Override
-		public void engage(RefererEngagement refererEngagement) {
+		public void engageAtTheTime(RefererEngagement refererEngagement, LocalDateTime dateTime) {
+			refererEngagement.getUrl().checkAvailalbleAtTheTime(dateTime);
 			refererEngagement.engageByDirect();
 		}
 	},
 	GOOGLE{
 		@Override
-		public void engage(RefererEngagement refererEngagement) {
+		public void engageAtTheTime(RefererEngagement refererEngagement, LocalDateTime dateTime) {
+			refererEngagement.getUrl().checkAvailalbleAtTheTime(dateTime);
 			refererEngagement.engageFromGoogle();
 		}
 	},
 	OTHER{
 		@Override
-		public void engage(RefererEngagement refererEngagement) {
+		public void engageAtTheTime(RefererEngagement refererEngagement, LocalDateTime dateTime) {
+			refererEngagement.getUrl().checkAvailalbleAtTheTime(dateTime);
 			refererEngagement.engageFromOthers();
 		}
 	};
 
-	public abstract void engage(RefererEngagement refererEngagement);
+	public abstract void engageAtTheTime(RefererEngagement refererEngagement, LocalDateTime dateTime);
 
 	public static Referer from(String refererHeader) {
 		if (refererHeader == null) {

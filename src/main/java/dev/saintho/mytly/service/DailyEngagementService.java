@@ -20,7 +20,7 @@ public class DailyEngagementService {
 
 	public void updateEngageCountByRedirecting(UrlRedirectEvent event) {
 		Url url = event.getUrl();
-		LocalDate redirectDate = event.getRedirectDate();
+		LocalDate redirectDate = event.getRedirectDateTime().toLocalDate();
 
 		Optional<DailyEngagement> dailyEngagementOptional =
 			dailyEngagementRepository.findByUrlAndDate(url, redirectDate);

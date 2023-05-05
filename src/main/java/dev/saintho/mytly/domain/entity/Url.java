@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import dev.saintho.mytly.exception.ExceptionType;
+import dev.saintho.mytly.exception.MytlyException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -75,5 +77,11 @@ public class Url {
 
 	public boolean isDeleted() {
 		return this.status == DELETED;
+	}
+
+	public void checkAvailalbleAtTheTime(LocalDateTime dateTime) {
+		if (!isAvailableAtTheTime(dateTime)) {
+			throw new MytlyException(ExceptionType.URL_NOT_AVAILABLE);
+		}
 	}
 }

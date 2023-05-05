@@ -3,7 +3,6 @@ package dev.saintho.mytly.service;
 import static dev.saintho.mytly.exception.ExceptionType.*;
 
 import java.net.URI;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -32,10 +31,10 @@ public class UrlService {
 
 	public URI getRedirectUrl(UrlRedirectQuery query) {
 		Url url = findVerifiedOneByShortened(query.getShortened());
-		checkUrlAvailableAtTheTime(url, query.getRedirectDateTime());
+		url.checkAvailalbleAtTheTime(query.getRedirectDateTime());
 
 		eventPublisher.publishEvent(
-			UrlRedirectEvent.of(url, query.getReferer(), query.getRedirectDateTime().toLocalDate()));
+			UrlRedirectEvent.of(url, query.getReferer(), query.getRedirectDateTime()));
 
 		return URI.create(url.getOriginal());
 	}
@@ -112,15 +111,5 @@ public class UrlService {
 			.original(command.getOriginal())
 			.isExpirable(false)
 			.build();
-	}
-
-	private void checkUrlAvailableAtTheTime(Url url, LocalDateTime dateTime) {
-		if (url.isDeleted()) {
-			throw new MytlyException(URL_NOT_AVAILABLE, "The Url is not available Because it is deleted");
-		}
-
-		if (url.isExpiredAtTheTime(dateTime)) {
-			throw new MytlyException(URL_NOT_AVAILABLE, "The Url is not available Because it is expired");
-		}
 	}
 }

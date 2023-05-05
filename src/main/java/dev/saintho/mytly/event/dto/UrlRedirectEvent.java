@@ -1,6 +1,6 @@
 package dev.saintho.mytly.event.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import dev.saintho.mytly.api.v1.urls.dto.query.Referer;
 import dev.saintho.mytly.domain.entity.Url;
@@ -13,14 +13,14 @@ import lombok.NoArgsConstructor;
 public class UrlRedirectEvent {
 	private Url url;
 	private Referer referer;
-	private LocalDate redirectDate;
+	private LocalDateTime redirectDateTime;
 
-	public static UrlRedirectEvent of(Url url, Referer referer, LocalDate redirectDate) {
+	public static UrlRedirectEvent of(Url url, Referer referer, LocalDateTime redirectDateTime) {
 		UrlRedirectEvent event = new UrlRedirectEvent();
 
 		event.url = url;
 		event.referer = referer;
-		event.redirectDate = redirectDate;
+		event.redirectDateTime = redirectDateTime;
 
 		return event;
 	}
