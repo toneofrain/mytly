@@ -58,7 +58,7 @@ public class Url {
 		this.expireAt = expireAt;
 	}
 
-	public void setIsNotExpirable() {
+	public void setNotExpirable() {
 		this.isExpirable = false;
 		this.expireAt = null;
 	}
