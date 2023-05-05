@@ -16,6 +16,7 @@ import dev.saintho.mytly.api.v1.urls.dto.response.UrlStatisticUrlInfo;
 import dev.saintho.mytly.exception.MytlyException;
 import dev.saintho.mytly.repository.jpa.urlstatistic.UrlStatisticRepository;
 import lombok.RequiredArgsConstructor;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
