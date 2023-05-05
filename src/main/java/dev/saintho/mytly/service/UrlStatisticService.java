@@ -1,5 +1,6 @@
 package dev.saintho.mytly.service;
 
+import static dev.saintho.mytly.domain.entity.UrlStatus.*;
 import static dev.saintho.mytly.exception.ExceptionType.*;
 
 import java.time.LocalDate;
@@ -45,7 +46,7 @@ public class UrlStatisticService {
 	}
 
 	private void checkUrlStatisticAvailable(UrlStatisticUrlInfo urlInfo) {
-		if (urlInfo.isUrlDeleted()) {
+		if (urlInfo.getUrlStatus() == DELETED) {
 			throw new MytlyException(URL_STATISTIC_NOT_AVAILABLE,
 				"Url Statistic is not availalbe becuase Url is deleted");
 		}

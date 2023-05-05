@@ -1,10 +1,6 @@
 package dev.saintho.mytly.api.v1.urls.dto.response;
 
-import static dev.saintho.mytly.domain.entity.UrlStatus.*;
-
 import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import dev.saintho.mytly.domain.entity.UrlStatus;
 import lombok.Getter;
@@ -19,9 +15,4 @@ public class UrlStatisticUrlInfo {
 	private LocalDateTime createdAt;
 	private Boolean isExpirable;
 	private LocalDateTime expireAt;
-
-	@JsonIgnore
-	public boolean isUrlDeleted() {
-		return urlStatus == DELETED;
-	}
 }

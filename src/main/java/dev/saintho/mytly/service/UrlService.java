@@ -73,7 +73,7 @@ public class UrlService {
 			return url;
 		}
 
-		url.setIsNotExpirable();
+		url.setNotExpirable();
 		return url;
 	}
 
