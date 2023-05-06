@@ -50,7 +50,9 @@ mysql --version
 
 본인의 db 정보와 hostname에 맞게 수정
 - gradle로 빌드
+```
     ./gradlew build -x test
+```
 
 ### jar 실행
 - build/libs로 이동
