@@ -9,9 +9,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${LOCAL_DB_URL}
+    url: ${PROD_DB_URL}
     username: mytly
-    password: ${LOCAL_DB_PW}
+    password: ${PROD_DB_PW}
 
 host:
   name: https://saintho.dev
