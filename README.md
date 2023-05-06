@@ -56,7 +56,7 @@ mysql --version
 - build/libs로 이동
 - java -jar 생성된jar파일명.jar
 
-### Swagger 
+### Swagger 주소
 - {your-hostname}/swagger-ui/index.html
 
 ---
