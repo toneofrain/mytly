@@ -17,6 +17,50 @@ Mytly는 BASE62 기반 단축 URL 관리 REST API 서비스입니다.
 
 ---
 
+## 실행
+
+### java 버전
+```
+java --version
+```
+
+<u>java 11 이상</u>
+
+### mysql 버전
+```
+mysql --version
+```
+
+<u>mysql 8</u>
+
+### 빌드
+- github에서 fork
+- mytly/src/main/resources/application-prod.yml
+```
+      datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: ${your_db_url}
+        username: {your_db_username}
+        password: ${your_db_user_pwd}
+      
+      host:
+        name: {your_hostname}
+        path: /api/v1/urls/
+```
+
+본인의 db 정보와 hostname에 맞게 수정
+- gradle로 빌드
+    ./gradlew build -x test
+
+### jar 실행
+- build/libs로 이동
+- java -jar 생성된jar파일명.jar
+
+### Swagger 
+- {your-hostname}/swagger-ui/index.html
+
+---
+
 ## 핵심기능 - 단축 URL 관리
 
 ### 원본 URL 조회(리다이렉트)
@@ -163,6 +207,8 @@ Mytly는 BASE62 기반 단축 URL 관리 REST API 서비스입니다.
 ### 4. 로깅
 
 ### 5. 원본 URL 검증 로직 보강
+
+---
 
 ## 트러블슈팅 및 회고
 
