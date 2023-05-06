@@ -41,6 +41,8 @@ Mytly는 BASE62 기반 단축 URL 관리 REST API 서비스입니다.
 ### ERD
 <img src=https://user-images.githubusercontent.com/45251314/236216959-f754fc27-c19e-4f77-b4eb-d4a93fabc60f.png width="500"/>
 
+[스키마](https://github.com/toneofrain/mytly/blob/main/src/main/resources/sql/schema.sql)
+
 ### 자바 패키지 구조
 ```
 .
