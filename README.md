@@ -35,7 +35,7 @@ mysql --version
 
 ### 빌드
 - github에서 fork
-- mytly/src/main/resources/application-prod.yml
+- mytly/src/main/resources/application-prod.yml 
 ```
       datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
