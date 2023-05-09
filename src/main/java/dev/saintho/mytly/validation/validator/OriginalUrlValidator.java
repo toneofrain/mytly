@@ -15,11 +15,7 @@ public class OriginalUrlValidator implements ConstraintValidator<ValidOriginalUr
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		if (value.isEmpty()) {
-			return false;
-		}
-
-		if (value.length() > 255) {
+		if (value.isEmpty() || value.length() > 255) {
 			return false;
 		}
 
